@@ -63,7 +63,7 @@ var GameState = {
     this.fires = this.add.group()
     this.fires.enableBody = true;
 
-    let fire;
+    var fire;
 
     this.levelData.fireData.forEach(function(element) {
       fire = this.fires.create(element.x, element.y, 'fire');
@@ -118,9 +118,9 @@ var GameState = {
     }
   },
   createOnscreenControls: function() {
-    this.leftArrow = this.add.button(20, 535, 'arrowButton');
-    this.rightArrow = this.add.button(110, 535, 'arrowButton');
-    this.actionButton = this.add.button(280, 535, 'actionButton');
+    this.leftArrow = this.add.button(150, 630, 'arrowButton');
+    this.rightArrow = this.add.button(300, 630, 'arrowButton');
+    this.actionButton = this.add.button(500, 630, 'actionButton');
 
     this.leftArrow.alpha = 0.5;
     this.rightArrow.alpha = 0.5;
@@ -174,7 +174,7 @@ var GameState = {
 };
 
 //initiate the Phaser framework
-const game = new Phaser.Game(1000, 592, Phaser.AUTO);
+var game = new Phaser.Game(1000, 700, Phaser.AUTO);
 
 game.state.add('GameState', GameState);
 game.state.start('GameState');
