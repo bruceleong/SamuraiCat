@@ -1,20 +1,5 @@
 //this game will have only 1 state
 var GameState = {
-  findObjectsByType: function (type, map, layer) {
-    var result = new Array();
-    map.objects[layer].forEach(function (element) {
-      console.log(element);
-      if (element.type === type) {
-        //Phaser uses top left, Tiled bottom left so we have to adjust the y position
-        //also keep in mind that the cup images are a bit smaller than the tile which is 16x16
-        //so they might not be placed in the exact pixel position as in Tiled
-        console.log("Found " + element.name);
-        element.y -= map.tileHeight;
-        result.push(element);
-      }
-    });
-    return result;
-  },
 
   //initiate game settings
   init: function () {
@@ -37,13 +22,14 @@ var GameState = {
   preload: function () {
     this.load.image('ground', 'assets/images/ground.png');
     this.load.image('brick', 'assets/images/bricks.png');
+    this.load.image('star', 'assets/images/obstacle.png');
     this.load.image('candle', 'assets/images/candle.png');
     this.load.image('grass', 'assets/images/grass.png');
     this.load.image('floor', 'assets/images/transparentGround.png')
     this.load.image('goal', 'assets/images/gorilla3.png');
     this.load.image('arrowButton', 'assets/images/arrowButton.png');
     this.load.image('actionButton', 'assets/images/actionButton.png');
-    this.load.image('barrel', 'assets/images/barrel.png');
+    // this.load.image('barrel', 'assets/images/barrel.png');
     this.load.image('background', 'assets/images/backgroundBlue.png');
     this.load.tilemap('level', 'assets/images/level1.json', null, Phaser.Tilemap.TILED_JSON)
     this.load.image('gameTiles', 'assets/images/backgroundBlue.png')
@@ -65,8 +51,6 @@ var GameState = {
     this.map.addTilesetImage('pig', 'pig')
     this.background = this.map.createLayer('background')
     this.test = this.map.createLayer('test')
-    console.log(this.map)
-
 
     this.background.resizeWorld();
 
@@ -156,17 +140,24 @@ var GameState = {
 
     this.game.camera.follow(this.player)
 
-    this.stars = this.add.group();
-    this.stars.enableBody = true;
+    this.star = this.add.group();
+    this.star.enableBody = true;
+
+    this.createStar();
+    this.starCreator = this.game.time.events.loop(Phaser.Timer.SECOND * this.levelData.starFrequency, this.createStar, this)
   },
   update: function () {
     this.game.physics.arcade.collide(this.player, this.ground);
     this.game.physics.arcade.collide(this.player, this.bricks);
     this.game.physics.arcade.collide(this.player, this.grasses);
-    this.game.physics.arcade.collide(this.player, this.test);
+    // this.game.physics.arcade.collide(this.player, this.test);
     this.game.physics.arcade.collide(this.player, this.floor);
-    this.game.physics.arcade.collide(this.player, this.smallPlatform);
+    // this.game.physics.arcade.collide(this.player, this.smallPlatform);
     this.game.physics.arcade.collide(this.player, this.piggie)
+
+    this.game.physics.arcade.collide(this.star, this.ground)
+    this.game.physics.arcade.collide(this.star, this.bricks)
+    this.game.physics.arcade.collide(this.star, this.grasses)
 
     this.piggie.play('walking')
 
@@ -194,12 +185,8 @@ var GameState = {
 
 
       if ((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
-        console.log('out of loop')
       this.player.body.velocity.y = -this.JUMPING_SPEED;
-    } else {
-
     }
-
   },
 
   createFromTiledObject: function(element, group) {
@@ -216,6 +203,15 @@ var GameState = {
   },
   win: function (player, goal) {
     game.state.start('GameState');
+  },
+  createStar: function() {
+    var star = this.star.getFirstExists(false)
+
+    if (!star) {
+      star = this.star.create(0, 0, 'star');
+    }
+    star.reset(this.levelData.goal.x, this.levelData.goal.y);
+    star.body.velocity.x = this.levelData.starSpeed;
   }
 };
 
