@@ -27,14 +27,20 @@ var GameState = {
     this.load.image('actionButton', 'assets/images/actionButton.png');
     this.load.image('barrel', 'assets/images/barrel.png');
     this.load.image('background', 'assets/images/backgroundBlue.png');
+    this.load.tilemap('level', 'assets/images/testLevel.json', null, Phaser.Tilemap.TILED_JSON)
+    this.load.image('gameTiles', 'assets/images/backgroundBlue.png')
+
 
     this.load.spritesheet('player', 'assets/images/duke_spritesheet.png', 40, 50)
     this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', 20, 21, 2, 1, 1);
     this.load.text('level', 'assets/data/level.json')
   },
-  //executed after everything is loaded
   create: function() {
-    this.background = this.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
+    this.map = this.add.tilemap('level');
+    console.log(this.map, 'map')
+    this.map.addTilesetImage('backgroundBlue', 'gameTiles')
+    // this.blockedLayer1 = this.map.createLayer('blockedLayer1')
+    this.tileLayer = this.map.createLayer('tileLayer')
 
     this.ground = this.add.sprite(0, 630, 'ground');
     this.game.physics.arcade.enable(this.ground)
@@ -174,7 +180,8 @@ var GameState = {
 };
 
 //initiate the Phaser framework
-var game = new Phaser.Game(1000, 700, Phaser.AUTO);
+
+var game = new Phaser.Game(800, 800, Phaser.AUTO);
 
 game.state.add('GameState', GameState);
 game.state.start('GameState');
