@@ -156,7 +156,8 @@ var GameState = {
 
     this.game.camera.follow(this.player)
 
-    // this.createOnscreenControls();
+    this.stars = this.add.group();
+    this.stars.enableBody = true;
   },
   update: function () {
     this.game.physics.arcade.collide(this.player, this.ground);
@@ -171,7 +172,6 @@ var GameState = {
 
     window.x = this
     this.game.physics.arcade.collide(this.player, this.test);
-    // console.log(this.test)
 
     this.game.physics.arcade.overlap(this.player, this.fires, this.killPlayer);
     this.game.physics.arcade.overlap(this.player, this.goal, this.win)
@@ -181,26 +181,23 @@ var GameState = {
     if (this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
       this.player.body.velocity.x = -this.RUNNING_SPEED;
       this.player.scale.setTo(-1, 1);
-      // console.log(this.player, 'left walking')
+
       this.player.play('walking');
     } else if (this.cursors.right.isDown || this.player.customParams.isMovingRight) {
       this.player.body.velocity.x = this.RUNNING_SPEED;
       this.player.scale.setTo(1, 1)
-      // console.log(this.player, 'right walking')
       this.player.play('walking')
     } else {
       this.player.animations.stop();
       this.player.frame = 0;
     }
 
-    // if ((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
 
       if ((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
         console.log('out of loop')
       this.player.body.velocity.y = -this.JUMPING_SPEED;
     } else {
 
-      // console.log(this.player.body.touching.down, 'touching down  OUT OF STATEMENT')
     }
 
   },
@@ -212,53 +209,6 @@ var GameState = {
       Object.keys(element.properties).forEach(function(key){
         sprite[key] = element.properties[key];
       });
-  },
-  createOnscreenControls: function() {
-    this.leftArrow = this.add.button(150, 630, 'arrowButton');
-    this.rightArrow = this.add.button(300, 630, 'arrowButton');
-    this.actionButton = this.add.button(500, 630, 'actionButton');
-
-    this.leftArrow.alpha = 0.5;
-    this.rightArrow.alpha = 0.5;
-    this.actionButton.alpha = 0.5;
-
-    this.leftArrow.fixedToCamera = true;
-    this.rightArrow.fixedToCamera = true;
-    this.actionButton.fixedToCamera = true;
-
-    this.actionButton.events.onInputDown.add(function() {
-      this.player.customParams.mustJump = true;
-    }, this)
-    this.actionButton.events.onInputUp.add(function() {
-      this.player.customParams.mustJump = false;
-    }, this)
-
-    //left
-    this.leftArrow.events.onInputDown.add(function() {
-      this.player.customParams.isMovingLeft = true;
-    }, this)
-    this.leftArrow.events.onInputUp.add(function() {
-      this.player.customParams.isMovingLeft = false;
-    }, this)
-    this.leftArrow.events.onInputOver.add(function() {
-      this.player.customParams.isMovingLeft = true;
-    }, this)
-    this.leftArrow.events.onInputOut.add(function() {
-      this.player.customParams.isMovingLeft = false;
-    }, this)
-    //right
-    this.rightArrow.events.onInputDown.add(function() {
-      this.player.customParams.isMovingRight = true;
-    }, this)
-    this.rightArrow.events.onInputUp.add(function() {
-      this.player.customParams.isMovingRight = false;
-    }, this)
-    this.rightArrow.events.onInputOver.add(function() {
-      this.player.customParams.isMovingRight = true;
-    }, this)
-    this.rightArrow.events.onInputOut.add(function() {
-      this.player.customParams.isMovingRight = false;
-    }, this)
   },
   killPlayer: function (player, fire) {
     // alert('you lost')
