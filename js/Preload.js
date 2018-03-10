@@ -43,6 +43,7 @@ SamuraiCat.Preload.prototype = {
     this.load.text('level', 'assets/data/level.json')
   },
   create: function() {
-  	this.state.start('MainMenu');
+    this.state.start('MainMenu');
+    this.state.start('Game');
   }
 };

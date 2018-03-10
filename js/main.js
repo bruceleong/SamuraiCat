@@ -1,6 +1,6 @@
 var SamuraiCat = SamuraiCat || {};
 
-SamuraiCat.game = new Phaser.Game(window.innerHeight, window.innerHeight, Phaser.AUTO, '');
+SamuraiCat.game = new Phaser.Game(768, 768, Phaser.AUTO, '');
 SamuraiCat.game.state.add('Boot', SamuraiCat.Boot);
 SamuraiCat.game.state.add('Preload', SamuraiCat.Preload);
 SamuraiCat.game.state.add('MainMenu', SamuraiCat.MainMenu);

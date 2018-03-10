@@ -20,14 +20,16 @@ SamuraiCat.Game.prototype = {
   },
 
   create: function () {
-    this.game.world.setBounds(0, 0, 1920, 1920)
-    this.map = this.add.tilemap('level');
-    this.map.addTilesetImage('backgroundBlue', 'gameTiles')
-    this.map.addTilesetImage('pig', 'pig')
-    this.background = this.map.createLayer('background')
-    this.test = this.map.createLayer('test')
+    this.game.world.setBounds(0, 0, 780, 780);
+    this.game.stage.backgroundColor = '#87ceeb'
+    // console.log(this.game)
+    // this.map = this.add.tilemap('level');
+    // this.map.addTilesetImage('backgroundBlue', 'gameTiles')
+    // this.map.addTilesetImage('pig', 'pig')
+    // this.background = this.map.createLayer('background')
+    // this.test = this.map.createLayer('test')
 
-    this.background.resizeWorld();
+    // this.background.resizeWorld();
 
     this.floor = this.add.sprite(2, 740, 'floor');
     this.game.physics.arcade.enable(this.floor)
@@ -112,7 +114,7 @@ SamuraiCat.Game.prototype = {
     this.goal.body.allowGravity = false;
 
     //create player
-    this.player = this.add.sprite(this.map.objects.GameObjects[0].x, this.map.objects.GameObjects[0].y, 'player');
+    this.player = this.add.sprite(129, 518, 'player');
     this.player.anchor.setTo(0.5);
     this.player.animations.add('walking');
     this.player.animations.play('walking', 6, true)
@@ -190,10 +192,10 @@ SamuraiCat.Game.prototype = {
   },
   killPlayer: function (player, fire) {
     // alert('you lost')
-    game.state.start('GameState');
+    SamuraiCat.game.state.start('Game');
   },
   win: function (player, goal) {
-    game.state.start('GameState');
+    SamuraiCat.game.state.start('Game');
   },
   createStar: function() {
     var star = this.star.getFirstExists(false)
