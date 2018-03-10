@@ -23,6 +23,6 @@
     {"x": 216, "y": 582}
   ],
   "goal": {"x": 20, "y": 80},
-  "starFrequency": 2,
-  "starSpeed": 120
+  "starFrequency": 4,
+  "starSpeed": 140
 }

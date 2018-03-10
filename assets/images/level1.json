@@ -75,11 +75,11 @@
                  "height":26,
                  "id":9,
                  "name":"grass",
-                 "rotation":0,
+                 "rotation":1,
                  "type":"",
                  "visible":true,
                  "width":218,
-                 "x":548,
+                 "x":525,
                  "y":424
                 }, 
                 {
@@ -123,8 +123,8 @@
                  "type":"",
                  "visible":true,
                  "width":150,
-                 "x":120,
-                 "y":120
+                 "x":100,
+                 "y":150
                 }, 
                 {
                  "height":2,
@@ -169,6 +169,94 @@
                  "width":0,
                  "x":436,
                  "y":452
+                }, 
+                {
+                 "height":72,
+                 "id":18,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":92,
+                 "x":414,
+                 "y":562
+                }, 
+                {
+                 "height":20,
+                 "id":19,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":28,
+                 "x":60,
+                 "y":42
+                }, 
+                {
+                 "height":12,
+                 "id":20,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":10,
+                 "x":58,
+                 "y":20
+                }, 
+                {
+                 "height":14,
+                 "id":21,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":58,
+                 "y":8
+                }, 
+                {
+                 "height":22,
+                 "id":22,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":20,
+                 "x":728,
+                 "y":20
+                }, 
+                {
+                 "height":22,
+                 "id":23,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":24,
+                 "x":678,
+                 "y":20
+                }, 
+                {
+                 "height":6,
+                 "id":24,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":2,
+                 "x":886,
+                 "y":798
+                }, 
+                {
+                 "height":0,
+                 "id":25,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":-112,
+                 "y":208
                 }],
          "opacity":0,
          "type":"objectgroup",
@@ -195,7 +283,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":18,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.3",
