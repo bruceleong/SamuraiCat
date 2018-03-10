@@ -6,10 +6,6 @@ SamuraiCat.Game.prototype = {
 
   //initiate game settings
   init: function () {
-    //adapt to screen size, fit all the game
-    // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    // this.scale.pageAlignHorizontally = true;
-    // this.scale.pageAlignVertically = true;
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 1000;
 
@@ -19,30 +15,7 @@ SamuraiCat.Game.prototype = {
     this.JUMPING_SPEED = 580;
 
   },
-  //load the game assets before the game starts
   preload: function () {
-    // this.load.image('ground', 'assets/images/ground.png');
-    // this.load.image('brick', 'assets/images/bricks.png');
-    // this.load.image('star', 'assets/images/obstacle.png');
-    // this.load.image('candle', 'assets/images/candle.png');
-    // this.load.image('grass', 'assets/images/grass.png');
-    // this.load.image('floor', 'assets/images/transparentGround.png')
-    // this.load.image('goal', 'assets/images/gorilla3.png');
-    // this.load.image('arrowButton', 'assets/images/arrowButton.png');
-    // this.load.image('actionButton', 'assets/images/actionButton.png');
-    // // this.load.image('barrel', 'assets/images/barrel.png');
-    // this.load.image('background', 'assets/images/backgroundBlue.png');
-    // this.load.tilemap('level', 'assets/images/level1.json', null, Phaser.Tilemap.TILED_JSON)
-    // this.load.image('gameTiles', 'assets/images/backgroundBlue.png')
-    // this.load.image('platformBrick', 'assets/images/platformBrick.png')
-    // this.load.image('pig', 'assets/images/pig.png')
-    // this.load.image('smallPlatform', 'assets/images/smallPlatform.png')
-
-    // this.load.spritesheet('cheshire', 'assets/images/cheshire.png', 81, 80)
-    // this.load.spritesheet('player', 'assets/images/walking.png', 35, 48)
-    // this.load.spritesheet('piggie', 'assets/images/piggie.png', 83, 97, 5)
-    // this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', 20, 21, 2, 1, 1);
-    // this.load.text('level', 'assets/data/level.json')
 
   },
 
@@ -236,11 +209,3 @@ SamuraiCat.Game.prototype = {
     star.body.velocity.x = this.levelData.starSpeed;
   }
 };
-
-// //initiate the Phaser framework
-
-// var game = new Phaser.Game(668, 668, Phaser.AUTO);
-
-// game.state.add('GameState', GameState);
-// game.state.start('GameState');
-
