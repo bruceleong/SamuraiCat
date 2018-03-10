@@ -37,7 +37,7 @@ var GameState = {
     this.load.image('pig', 'assets/images/pig.png')
     this.load.image('smallPlatform', 'assets/images/smallPlatform.png')
 
-
+    this.load.spritesheet('cheshire', 'assets/images/cheshire.png', 81, 80)
     this.load.spritesheet('player', 'assets/images/walking.png', 35, 48)
     this.load.spritesheet('piggie', 'assets/images/piggie.png', 83, 97, 5)
     this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', 20, 21, 2, 1, 1);
@@ -76,6 +76,14 @@ var GameState = {
     this.piggie.animations.play('walking', 4, true);
     this.piggie.body.allowGravity = false;
     this.piggie.body.immovable = true;
+
+    this.cheshire = this.add.sprite(481, 178, 'cheshire');
+    this.cheshire.anchor.setTo(0.5);
+    this.game.physics.arcade.enable(this.cheshire)
+    this.cheshire.animations.add('moving');
+    this.cheshire.animations.play('moving', 4, true);
+    this.cheshire.body.allowGravity = false;
+    this.cheshire.body.immovable = true;
 
     //parse
     this.levelData = JSON.parse(this.game.cache.getText('level'))
@@ -154,6 +162,7 @@ var GameState = {
     this.game.physics.arcade.collide(this.player, this.floor);
     // this.game.physics.arcade.collide(this.player, this.smallPlatform);
     this.game.physics.arcade.collide(this.player, this.piggie);
+    this.game.physics.arcade.collide(this.player, this.cheshire);
 
     this.game.physics.arcade.collide(this.star, this.ground);
     this.game.physics.arcade.collide(this.star, this.bricks);
