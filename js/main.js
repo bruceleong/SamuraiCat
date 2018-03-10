@@ -38,8 +38,8 @@ var GameState = {
     this.load.image('smallPlatform', 'assets/images/smallPlatform.png')
 
 
-    this.load.spritesheet('player', 'assets/images/duke_spritesheet.png', 40, 50)
-    this.load.spritesheet('piggie', 'assets/images/piggie.png', 90, 100, 5)
+    this.load.spritesheet('player', 'assets/images/walking.png', 35, 48)
+    this.load.spritesheet('piggie', 'assets/images/piggie.png', 83, 97, 5)
     this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', 20, 21, 2, 1, 1);
     this.load.text('level', 'assets/data/level.json')
 
@@ -153,11 +153,12 @@ var GameState = {
     // this.game.physics.arcade.collide(this.player, this.test);
     this.game.physics.arcade.collide(this.player, this.floor);
     // this.game.physics.arcade.collide(this.player, this.smallPlatform);
-    this.game.physics.arcade.collide(this.player, this.piggie)
+    this.game.physics.arcade.collide(this.player, this.piggie);
 
-    this.game.physics.arcade.collide(this.star, this.ground)
-    this.game.physics.arcade.collide(this.star, this.bricks)
-    this.game.physics.arcade.collide(this.star, this.grasses)
+    this.game.physics.arcade.collide(this.star, this.ground);
+    this.game.physics.arcade.collide(this.star, this.bricks);
+    this.game.physics.arcade.collide(this.star, this.grasses);
+    this.game.physics.arcade.collide(this.star, this.floor);
 
     this.piggie.play('walking')
 
@@ -165,9 +166,16 @@ var GameState = {
     this.game.physics.arcade.collide(this.player, this.test);
 
     this.game.physics.arcade.overlap(this.player, this.fires, this.killPlayer);
+    this.game.physics.arcade.overlap(this.player, this.star, this.killPlayer);
     this.game.physics.arcade.overlap(this.player, this.goal, this.win)
 
     this.player.body.velocity.x = 0;
+
+    this.star.forEach(function(element) {
+      if(element.x < 10 && element.y > 600) {
+        element.kill()
+      }
+    }, this)
 
     if (this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
       this.player.body.velocity.x = -this.RUNNING_SPEED;
@@ -182,7 +190,6 @@ var GameState = {
       this.player.animations.stop();
       this.player.frame = 0;
     }
-
 
       if ((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
       this.player.body.velocity.y = -this.JUMPING_SPEED;
@@ -210,6 +217,10 @@ var GameState = {
     if (!star) {
       star = this.star.create(0, 0, 'star');
     }
+
+    star.body.collideWorldBounds = true;
+    star.body.bounce.set(1, .75);
+
     star.reset(this.levelData.goal.x, this.levelData.goal.y);
     star.body.velocity.x = this.levelData.starSpeed;
   }
