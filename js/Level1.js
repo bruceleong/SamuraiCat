@@ -1,8 +1,8 @@
 var SamuraiCat = SamuraiCat || {};
 
-SamuraiCat.Game = function(){};
+SamuraiCat.Level1 = function () { };
 
-SamuraiCat.Game.prototype = {
+SamuraiCat.Level1.prototype = {
 
   //initiate game settings
   init: function () {
@@ -36,10 +36,10 @@ SamuraiCat.Game.prototype = {
     this.floor.body.allowGravity = false;
     this.floor.body.immovable = true;
 
-    this.smallPlatform = this.add.sprite( 550, 618, 'smallPlatform');
-    this.game.physics.arcade.enable(this.smallPlatform)
-    this.smallPlatform.body.allowGravity = false;
-    this.smallPlatform.body.immovable = true;
+    // this.smallPlatform = this.add.sprite( 550, 618, 'smallPlatform');
+    // this.game.physics.arcade.enable(this.smallPlatform)
+    // this.smallPlatform.body.allowGravity = false;
+    // this.smallPlatform.body.immovable = true;
 
     this.ground = this.add.sprite(0, 630, 'ground');
     this.game.physics.arcade.enable(this.ground)
@@ -54,46 +54,72 @@ SamuraiCat.Game.prototype = {
     this.piggie.body.allowGravity = false;
     this.piggie.body.immovable = true;
 
-    this.cheshire = this.add.sprite(481, 178, 'cheshire');
-    this.cheshire.anchor.setTo(0.5);
-    this.game.physics.arcade.enable(this.cheshire)
-    this.cheshire.animations.add('moving');
-    this.cheshire.animations.play('moving', 4, true);
-    this.cheshire.body.allowGravity = false;
-    this.cheshire.body.immovable = true;
+    // this.cheshire = this.add.sprite(481, 178, 'cheshire');
+    // this.cheshire.anchor.setTo(0.5);
+    // this.game.physics.arcade.enable(this.cheshire)
+    // this.cheshire.animations.add('moving');
+    // this.cheshire.animations.play('moving', 4, true);
+    // this.cheshire.body.allowGravity = false;
+    // this.cheshire.body.immovable = true;
+
+    this.sun = this.add.sprite(481, 178, 'sun');
+    this.sun.anchor.setTo(0.5);
+    this.game.physics.arcade.enable(this.sun)
+    this.sun.animations.add('eye');
+    this.sun.animations.play('eye', 4, true);
+    this.sun.body.allowGravity = false;
+    this.sun.body.immovable = true;
+
+    // this.tree = this.add.sprite(650, 160, 'tree');
+    // this.tree.anchor.setTo(0.5);
+    // this.game.physics.arcade.enable(this.tree)
+    // this.tree.body.allowGravity = false;
+    // this.tree.body.immovable = true;
+    this.door = this.add.sprite(650, 165, 'door');
+    this.door.anchor.setTo(0.5);
+    this.game.physics.arcade.enable(this.door)
+    this.door.body.allowGravity = false;
+    this.door.body.immovable = true;
+
+    var text = "Exit here";
+    var style = { font: "25px Avenir", fill: "#003366", align: "center" };
+    var t = this.game.add.text(650, 130, text, style);
+    t.anchor.set(0.5);
 
     //parse
     this.levelData = JSON.parse(this.game.cache.getText('level'))
 
-    this.bricks = this.add.group();
-    this.bricks.enableBody = true;
-
-    this.levelData.bricksData.forEach(function (element) {
-      this.bricks.create(element.x, element.y, 'brick')
+    this.rollysticks = this.add.group();
+    this.rollysticks.enableBody = true;
+    this.levelData.rollysticksData.forEach(function (element) {
+      this.rollysticks.create(element.x, element.y, 'rollysticks')
     }, this)
+    this.rollysticks.setAll('body.immovable', true);
+    this.rollysticks.setAll('body.allowGravity', false)
 
-    this.bricks.setAll('body.immovable', true);
-    this.bricks.setAll('body.allowGravity', false)
-
-    this.grasses = this.add.group();
-    this.grasses.enableBody = true;
-
-    this.levelData.grassData.forEach(function (element) {
-      this.grasses.create(element.x, element.y, 'grass')
+    this.candies = this.add.group();
+    this.candies.enableBody = true;
+    this.levelData.candyData.forEach(function (element) {
+      this.candies.create(element.x, element.y, 'candy')
     }, this)
-
-    this.grasses.setAll('body.immovable', true);
-    this.grasses.setAll('body.allowGravity', false)
+    this.candies.setAll('body.immovable', true);
+    this.candies.setAll('body.allowGravity', false)
 
     this.candles = this.add.group();
     this.candles.enableBody = true;
-
     this.levelData.candleData.forEach(function (element) {
       this.candles.create(element.x, element.y, 'candle')
     }, this)
-
     this.candles.setAll('body.immovable', true);
     this.candles.setAll('body.allowGravity', false)
+
+    this.hostessCake = this.add.group();
+    this.hostessCake.enableBody = true;
+    this.levelData.hostessCakeData.forEach(function (element) {
+      this.hostessCake.create(element.x, element.y, 'hostessCake')
+    }, this)
+    this.hostessCake.setAll('body.immovable', true);
+    this.hostessCake.setAll('body.allowGravity', false)
 
     //fires
     this.fires = this.add.group()
@@ -109,15 +135,23 @@ SamuraiCat.Game.prototype = {
 
     this.fires.setAll('body.allowGravity', false);
     //GOAL
-    this.goal = this.add.sprite(this.levelData.goal.x, this.levelData.goal.y, 'goal');
-    this.game.physics.arcade.enable(this.goal);
-    this.goal.body.allowGravity = false;
+    // this.goal = this.add.sprite(this.levelData.goal.x, this.levelData.goal.y, 'goal');
+    // this.game.physics.arcade.enable(this.goal);
+    // this.goal.body.allowGravity = false;
+
+    this.chowEnemy = this.add.sprite(24, 72, 'chowEnemy');
+    this.game.physics.arcade.enable(this.chowEnemy);
+    this.chowEnemy.body.allowGravity = false;
+    this.chowEnemy.animations.add('moving');
+    this.chowEnemy.animations.play('moving', 4, true);
+    this.chowEnemy.body.immovable = true;
 
     //create player
     this.player = this.add.sprite(129, 518, 'player');
     this.player.anchor.setTo(0.5);
     this.player.animations.add('walking');
-    this.player.animations.play('walking', 6, true)
+    // this.player.animations.play('walking', 6, true)
+    this.player.animations.add('slash')
 
     this.player.anchor.setTo(0.5);
     this.game.physics.arcade.enable(this.player)
@@ -130,74 +164,77 @@ SamuraiCat.Game.prototype = {
 
     this.createStar();
     this.starCreator = this.game.time.events.loop(Phaser.Timer.SECOND * this.levelData.starFrequency, this.createStar, this)
+
+    this.mkey = this.input.keyboard.addKey(Phaser.Keyboard.M)
+
+    this.input.keyboard.addKeyCapture([Phaser.Keyboard.M])
+
+
   },
   update: function () {
+
     this.game.physics.arcade.collide(this.player, this.ground);
-    this.game.physics.arcade.collide(this.player, this.bricks);
-    this.game.physics.arcade.collide(this.player, this.grasses);
+    this.game.physics.arcade.collide(this.player, this.rollysticks);
+    this.game.physics.arcade.collide(this.player, this.candies);
+    this.game.physics.arcade.collide(this.star, this.sun)
     // this.game.physics.arcade.collide(this.player, this.test);
     this.game.physics.arcade.collide(this.player, this.floor);
+    this.game.physics.arcade.collide(this.player, this.hostessCake)
+    this.game.physics.arcade.collide(this.star, this.hostessCake)
     // this.game.physics.arcade.collide(this.player, this.smallPlatform);
     this.game.physics.arcade.collide(this.player, this.piggie);
-    this.game.physics.arcade.collide(this.player, this.cheshire);
+    this.game.physics.arcade.collide(this.player, this.sun);
 
     this.game.physics.arcade.collide(this.star, this.ground);
-    this.game.physics.arcade.collide(this.star, this.bricks);
-    this.game.physics.arcade.collide(this.star, this.grasses);
+    this.game.physics.arcade.collide(this.star, this.rollysticks);
+    this.game.physics.arcade.collide(this.star, this.candies);
     this.game.physics.arcade.collide(this.star, this.floor);
 
     this.piggie.play('walking')
 
     window.x = this
     this.game.physics.arcade.collide(this.player, this.test);
-
     this.game.physics.arcade.overlap(this.player, this.fires, this.killPlayer);
     this.game.physics.arcade.overlap(this.player, this.star, this.killPlayer);
-    this.game.physics.arcade.overlap(this.player, this.goal, this.win)
+    this.game.physics.arcade.overlap(this.player, this.door, this.win)
 
     this.player.body.velocity.x = 0;
 
-    this.star.forEach(function(element) {
-      if(element.x < 10 && element.y > 600) {
+    this.star.forEach(function (element) {
+      if (element.x < 10 && element.y > 600) {
         element.kill()
       }
     }, this)
 
+    if (this.mkey.isDown) {
+      this.player.animations.play('slash', 4, true)
+    }
+
     if (this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
       this.player.body.velocity.x = -this.RUNNING_SPEED;
       this.player.scale.setTo(-1, 1);
-
-      this.player.play('walking');
+      this.player.play('walking', 6, true);
     } else if (this.cursors.right.isDown || this.player.customParams.isMovingRight) {
       this.player.body.velocity.x = this.RUNNING_SPEED;
       this.player.scale.setTo(1, 1)
-      this.player.play('walking')
+      this.player.play('walking', 6, true)
     } else {
       this.player.animations.stop();
       this.player.frame = 0;
     }
 
-      if ((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
+    if ((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
       this.player.body.velocity.y = -this.JUMPING_SPEED;
     }
   },
 
-  createFromTiledObject: function(element, group) {
-    var sprite = group.create(element.x, element.y, element.properties.sprite);
-
-      //copy all properties to the sprite
-      Object.keys(element.properties).forEach(function(key){
-        sprite[key] = element.properties[key];
-      });
-  },
   killPlayer: function (player, fire) {
-    // alert('you lost')
-    SamuraiCat.game.state.start('Game');
+    SamuraiCat.game.state.start('Level1');
   },
   win: function (player, goal) {
-    SamuraiCat.game.state.start('Game');
+    SamuraiCat.game.state.start('Level2');
   },
-  createStar: function() {
+  createStar: function () {
     var star = this.star.getFirstExists(false)
 
     if (!star) {
@@ -207,7 +244,7 @@ SamuraiCat.Game.prototype = {
     star.body.collideWorldBounds = true;
     star.body.bounce.set(1, .75);
 
-    star.reset(this.levelData.goal.x, this.levelData.goal.y);
+    star.reset(20, 80);
     star.body.velocity.x = this.levelData.starSpeed;
   }
 };
