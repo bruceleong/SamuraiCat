@@ -121,9 +121,10 @@ SamuraiCat.Level1.prototype = {
 
     this.fires.setAll('body.allowGravity', false);
 
-    this.chowEnemy = this.add.sprite(24, 72, 'chowEnemy');
+    this.chowEnemy = this.add.sprite(24, 45, 'chowEnemy');
     this.game.physics.arcade.enable(this.chowEnemy);
     this.chowEnemy.body.allowGravity = false;
+    this.chowEnemy.scale.setTo(1, 1.75)
     this.chowEnemy.animations.add('moving');
     this.chowEnemy.animations.play('moving', 4, true);
     this.chowEnemy.body.immovable = true;

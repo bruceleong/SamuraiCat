@@ -51,12 +51,13 @@ SamuraiCat.Preload.prototype = {
     this.load.spritesheet('player', 'assets/images/walking.png', 35, 48);
     this.load.spritesheet('dukeNew', 'assets/images/dukeChar.png', 36, 48, 10)
     this.load.spritesheet('piggie', 'assets/images/piggie.png', 83, 97, 5)
-    this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', 20, 21, 2, 1, 1);
+    this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', 22, 21, 2, 1, 1);
     this.load.text('level', 'assets/data/level.json')
     this.load.text('level2', 'assets/data/level2.json')
   },
   create: function() {
     // this.state.start('Intro');
     this.state.start('Level1');
+    // this.state.start('Level2');
   }
 };

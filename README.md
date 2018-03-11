@@ -1,2 +1,6 @@
 # SamuraiCat
-Samurai Cat game
+Samurai Cat is a platform game centering on the the main character, Mr. Duke. On peculiar nights, he dreams and becomes Samurai Cat who travels through various worlds and fights to make it home.
+
+To run - user local server.
+
+All images and spritesheets were created by Bruce Leong.
