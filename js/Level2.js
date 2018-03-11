@@ -17,6 +17,9 @@ SamuraiCat.Level2.prototype = {
   },
 
   create: function () {
+    meow = this.game.add.audio('meow');
+    hiss = this.game.add.audio('hiss');
+    eating = this.game.add.audio('eating');
     this.game.world.setBounds(0, 0, 780, 780);
     this.game.stage.backgroundColor = '#B19CD9'
 
@@ -234,14 +237,17 @@ SamuraiCat.Level2.prototype = {
   },
 
   onPlayerTea: function(player, teaCup) {
+    eating.play();
     teaCup.kill()
   },
 
   killPlayer: function (player, evilFlower) {
     console.log('you lost')
+    hiss.play();
     SamuraiCat.game.state.start('Level2');
   },
   win: function (player, goal) {
+    meow.play();
     SamuraiCat.game.state.start('Final');
   },
   createRedSoldier: function () {

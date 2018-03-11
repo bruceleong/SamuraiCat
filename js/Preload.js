@@ -54,9 +54,11 @@ SamuraiCat.Preload.prototype = {
     this.load.spritesheet('dukeNew', 'assets/images/dukeChar.png', 37, 48)
     this.load.spritesheet('piggie', 'assets/images/piggie.png', 83, 97, 5)
     this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', 22, 21, 2, 1, 1);
-    this.load.text('level', 'assets/data/level.json')
-    this.load.text('level2', 'assets/data/level2.json')
-    this.load.audio('meow', 'assets/audio/meow.ogg')
+    this.load.text('level', 'assets/data/level.json');
+    this.load.text('level2', 'assets/data/level2.json');
+    this.load.audio('meow', 'assets/audio/meow.ogg');
+    this.load.audio('hiss', 'assets/audio/hiss.ogg');
+    this.load.audio('eating', 'assets/audio/eating.ogg')
   },
   create: function() {
     this.state.start('MainMenu');

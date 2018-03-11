@@ -22,6 +22,8 @@ SamuraiCat.Level1.prototype = {
 
   create: function () {
     meow = this.game.add.audio('meow');
+    hiss = this.game.add.audio('hiss');
+    eating = this.game.add.audio('eating');
     this.game.world.setBounds(0, 0, 780, 780);
     this.game.stage.backgroundColor = '#87ceeb'
 
@@ -233,14 +235,16 @@ SamuraiCat.Level1.prototype = {
   onPlayerSushi: function (player, spamMusubi) {
     currentScore++
     console.log(currentScore)
+    eating.play()
     spamMusubi.kill();
   },
   killPlayer: function (player, fire) {
-    meow.play()
+    hiss.play()
     console.log('i lost')
     SamuraiCat.game.state.start('Level1');
   },
   win: function (player, goal) {
+    meow.play()
     SamuraiCat.game.state.start('Level2');
   },
   createStar: function () {
