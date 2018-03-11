@@ -36,17 +36,7 @@ SamuraiCat.Level2.prototype = {
     this.floor.body.allowGravity = false;
     this.floor.body.immovable = true;
 
-    // this.smallPlatform = this.add.sprite( 550, 618, 'smallPlatform');
-    // this.game.physics.arcade.enable(this.smallPlatform)
-    // this.smallPlatform.body.allowGravity = false;
-    // this.smallPlatform.body.immovable = true;
-
-    // this.ground = this.add.sprite(0, 630, 'ground');
-    // this.game.physics.arcade.enable(this.ground)
-    // this.ground.body.allowGravity = false;
-    // this.ground.body.immovable = true;
-
-    this.cheshire = this.add.sprite(440, 320, 'cheshire');
+    this.cheshire = this.add.sprite(420, 300, 'cheshire');
     this.cheshire.anchor.setTo(0.5);
     this.game.physics.arcade.enable(this.cheshire)
     this.cheshire.animations.add('moving');
@@ -54,7 +44,7 @@ SamuraiCat.Level2.prototype = {
     this.cheshire.body.allowGravity = false;
     this.cheshire.body.immovable = true;
 
-    this.madHatter = this.add.sprite(40, 364, 'madHatter');
+    this.madHatter = this.add.sprite(400, 85, 'madHatter');
     this.madHatter.anchor.setTo(0.5);
     this.game.physics.arcade.enable(this.madHatter)
     this.madHatter.animations.add('moving');
@@ -62,34 +52,43 @@ SamuraiCat.Level2.prototype = {
     this.madHatter.body.allowGravity = false;
     this.madHatter.body.immovable = true;
 
-    this.rabbit = this.add.sprite(150, 160, 'rabbit');
+    this.rabbit = this.add.sprite(150, 170, 'rabbit');
     this.rabbit.anchor.setTo(0.5);
+    this.rabbit.scale.setTo(-1, 1.5)
     this.game.physics.arcade.enable(this.rabbit)
     this.rabbit.animations.add('moving');
     this.rabbit.animations.play('moving', 4, true);
     this.rabbit.body.allowGravity = false;
     this.rabbit.body.immovable = true;
 
-    this.evilQueen = this.add.sprite(730, 130, 'evilQueen');
+    this.door = this.add.sprite(50, 120, 'door');
+    this.door.anchor.setTo(0.5);
+    this.door.scale.setTo(1.25)
+    this.game.physics.arcade.enable(this.door)
+    this.door.body.allowGravity = false;
+    this.door.body.immovable = true;
+
+    this.evilQueen = this.add.sprite(710, 130, 'evilQueen');
     this.evilQueen.anchor.setTo(0.5);
     this.game.physics.arcade.enable(this.evilQueen)
     this.evilQueen.animations.add('moving');
-    this.evilQueen.animations.play('moving', 4, true);
+    this.evilQueen.animations.play('moving', 2, true);
     this.evilQueen.body.allowGravity = false;
     this.evilQueen.body.immovable = true;
 
-    console.log(this.evilQueen.animations, 'evil queen')
+    this.home = this.add.sprite(65, 50, 'home');
+    this.home.anchor.setTo(0.5);
+    this.game.physics.arcade.enable(this.home)
+    this.home.animations.add('moving');
+    this.home.animations.play('moving', 2, true);
+    this.home.body.allowGravity = false;
+    this.home.body.immovable = true;
 
     this.mushroom = this.add.sprite(130, 660, 'mushroom');
     this.mushroom.anchor.setTo(0.5);
     this.game.physics.arcade.enable(this.mushroom)
     this.mushroom.body.allowGravity = false;
     this.mushroom.body.immovable = true;
-
-    var text = "welcome to level2";
-    var style = { font: "25px Avenir", fill: "#003366", align: "center" };
-    var t = this.game.add.text(650, 130, text, style);
-    t.anchor.set(0.5);
 
     //parse
     this.level2Data = JSON.parse(this.game.cache.getText('level2'));
@@ -101,14 +100,6 @@ SamuraiCat.Level2.prototype = {
     }, this)
     this.bricks.setAll('body.immovable', true);
     this.bricks.setAll('body.allowGravity', false)
-
-    this.tree = this.add.group();
-    this.tree.enableBody = true;
-    this.level2Data.treeData.forEach(function (element) {
-      this.tree.create(element.x, element.y, 'tree')
-    }, this)
-    this.tree.setAll('body.immovable', true);
-    this.tree.setAll('body.allowGravity', false)
 
     this.grass = this.add.group();
     this.grass.enableBody = true;
@@ -140,8 +131,17 @@ SamuraiCat.Level2.prototype = {
     this.evilFlower.setAll('body.immovable', true);
     this.evilFlower.setAll('body.allowGravity', false)
 
-
+    // this.duke = this.add.sprite(129, 318, 'dukeNew');
+    // this.duke.anchor.setTo(0.5);
+    // this.game.physics.arcade.enable(this.duke)
+    // this.duke.animations.add('attack');
+    // this.duke.body.allowGravity = false;
+    // this.duke.body.immovable = true;
     //create player
+    this.mkey = this.input.keyboard.addKey(Phaser.Keyboard.M)
+
+    this.input.keyboard.addKeyCapture([Phaser.Keyboard.M])
+
     this.player = this.add.sprite(129, 518, 'player');
     this.player.anchor.setTo(0.5);
     this.player.animations.add('walking');
@@ -152,15 +152,6 @@ SamuraiCat.Level2.prototype = {
 
     this.game.camera.follow(this.player)
 
-    // this.star = this.add.group();
-    // this.star.enableBody = true;
-
-    // this.createStar();
-    // this.starCreator = this.game.time.events.loop(Phaser.Timer.SECOND * this.levelData.starFrequency, this.createStar, this)
-
-    this.mkey = this.input.keyboard.addKey(Phaser.Keyboard.M)
-
-    this.input.keyboard.addKeyCapture([Phaser.Keyboard.M])
 
     this.redSoldier = this.add.group();
     this.redSoldier.enableBody = true;
@@ -171,14 +162,13 @@ SamuraiCat.Level2.prototype = {
     console.log(SamuraiCat.game)
   },
   update: function () {
-
     this.game.physics.arcade.collide(this.player, this.bricks);
     this.game.physics.arcade.collide(this.player, this.grass);
     this.game.physics.arcade.collide(this.player, this.mushroom);
     this.game.physics.arcade.collide(this.player, this.flower);
     this.game.physics.arcade.collide(this.player, this.madHatter)
     ;
-    this.game.physics.arcade.collide(this.player, this.tree);
+    this.game.physics.arcade.collide(this.player, this.rabbit);
     this.game.physics.arcade.collide(this.player, this.cheshire);
     this.game.physics.arcade.collide(this.redSoldier, this.bricks);
     this.game.physics.arcade.collide(this.redSoldier, this.grass);
@@ -200,10 +190,6 @@ SamuraiCat.Level2.prototype = {
       }
     }, this)
 
-    if (this.mkey.isDown) {
-      this.player.animations.play('slash', 4, true)
-    }
-
     if (this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
       this.player.body.velocity.x = -this.RUNNING_SPEED;
       this.player.scale.setTo(-1, 1);
@@ -211,7 +197,7 @@ SamuraiCat.Level2.prototype = {
     } else if (this.cursors.right.isDown || this.player.customParams.isMovingRight) {
       this.player.body.velocity.x = this.RUNNING_SPEED;
       this.player.scale.setTo(1, 1)
-      this.player.play('walking', 6, true)
+      this.player.play('walking', 6, true);
     } else {
       this.player.animations.stop();
       this.player.frame = 0;
@@ -220,6 +206,14 @@ SamuraiCat.Level2.prototype = {
     if ((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
       this.player.body.velocity.y = -this.JUMPING_SPEED;
     }
+
+    // if (this.mkey.isDown) {
+    //   console.log('hellloooo inside m key')
+    //   this.player.play('attack', [4, 5, 6, 7, 8, 9, 19,], 6, false)
+    // } else {
+    //   this.player.animations.stop();
+    //   this.player.frame = 0;
+    // }
   },
 
   killPlayer: function (player, evilFlower) {

@@ -26,7 +26,6 @@ SamuraiCat.MainMenu.prototype = {
 
     // var h = this.game.add.text(this.game.width/2, this.game.height/2 + 50, text, style);
     // h.anchor.set(0.5);
-    console.log('are you in main menu')
   },
   update: function() {
     if(this.game.input.activePointer.justPressed()) {

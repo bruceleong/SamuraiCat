@@ -44,17 +44,19 @@ SamuraiCat.Preload.prototype = {
     this.load.image('pig', 'assets/images/pig.png')
     this.load.image('smallPlatform', 'assets/images/smallPlatform.png')
 
-    this.load.spritesheet('evilQueen', 'assets/images/evilQueen.png', 41, 70)
+    this.load.spritesheet('home', 'assets/images/home.png', 101, 40)
+    this.load.spritesheet('exit', 'assets/images/exit.png', 81, 50)
+    this.load.spritesheet('evilQueen', 'assets/images/evilFace.png', 71, 70)
     this.load.spritesheet('rabbit', 'assets/images/rabbit.png', 61, 60)
     this.load.spritesheet('redSoldier', 'assets/images/redSoldier.png', 28, 50)
     this.load.spritesheet('evilFlower', 'assets/images/evilPlant.png', 36, 35)
     this.load.spritesheet('madHatter', 'assets/images/madHatter.png', 40, 70)
     this.load.spritesheet('flower', 'assets/images/flower.png', 20, 50)
-    this.load.spritesheet('sun', 'assets/images/sun.png', 61, 60)
-    this.load.spritesheet('dukeSlash', 'assets/images/dukeFighting.png', 35, 48)
+    this.load.spritesheet('sun', 'assets/images/sun.png', 61, 60);
     this.load.spritesheet('cheshire', 'assets/images/cheshire.png', 81, 80)
     this.load.spritesheet('chowEnemy', 'assets/images/chowEnemy.png', 51, 40)
-    this.load.spritesheet('player', 'assets/images/walking.png', 35, 48)
+    this.load.spritesheet('player', 'assets/images/walking.png', 35, 48);
+    this.load.spritesheet('dukeNew', 'assets/images/dukeChar.png', 36, 48, 10)
     this.load.spritesheet('piggie', 'assets/images/piggie.png', 83, 97, 5)
     this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', 20, 21, 2, 1, 1);
     this.load.text('level', 'assets/data/level.json')

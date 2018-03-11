@@ -36,11 +36,6 @@ SamuraiCat.Level1.prototype = {
     this.floor.body.allowGravity = false;
     this.floor.body.immovable = true;
 
-    // this.smallPlatform = this.add.sprite( 550, 618, 'smallPlatform');
-    // this.game.physics.arcade.enable(this.smallPlatform)
-    // this.smallPlatform.body.allowGravity = false;
-    // this.smallPlatform.body.immovable = true;
-
     this.ground = this.add.sprite(0, 630, 'ground');
     this.game.physics.arcade.enable(this.ground)
     this.ground.body.allowGravity = false;
@@ -54,14 +49,6 @@ SamuraiCat.Level1.prototype = {
     this.piggie.body.allowGravity = false;
     this.piggie.body.immovable = true;
 
-    // this.cheshire = this.add.sprite(481, 178, 'cheshire');
-    // this.cheshire.anchor.setTo(0.5);
-    // this.game.physics.arcade.enable(this.cheshire)
-    // this.cheshire.animations.add('moving');
-    // this.cheshire.animations.play('moving', 4, true);
-    // this.cheshire.body.allowGravity = false;
-    // this.cheshire.body.immovable = true;
-
     this.sun = this.add.sprite(481, 178, 'sun');
     this.sun.anchor.setTo(0.5);
     this.game.physics.arcade.enable(this.sun)
@@ -70,21 +57,20 @@ SamuraiCat.Level1.prototype = {
     this.sun.body.allowGravity = false;
     this.sun.body.immovable = true;
 
-    // this.tree = this.add.sprite(650, 160, 'tree');
-    // this.tree.anchor.setTo(0.5);
-    // this.game.physics.arcade.enable(this.tree)
-    // this.tree.body.allowGravity = false;
-    // this.tree.body.immovable = true;
-    this.door = this.add.sprite(650, 165, 'door');
-    this.door.anchor.setTo(0.5);
-    this.game.physics.arcade.enable(this.door)
-    this.door.body.allowGravity = false;
-    this.door.body.immovable = true;
+    this.tree = this.add.sprite(650, 165, 'tree');
+    this.tree.anchor.setTo(0.5);
+    this.tree.scale.setTo(1.5)
+    this.game.physics.arcade.enable(this.tree)
+    this.tree.body.allowGravity = false;
+    this.tree.body.immovable = true;
 
-    var text = "Exit here";
-    var style = { font: "25px Avenir", fill: "#003366", align: "center" };
-    var t = this.game.add.text(650, 130, text, style);
-    t.anchor.set(0.5);
+    this.exit = this.add.sprite(650, 100, 'exit');
+    this.exit.anchor.setTo(0.5);
+    this.game.physics.arcade.enable(this.exit)
+    this.exit.animations.add('exit');
+    this.exit.animations.play('exit', 4, true);
+    this.exit.body.allowGravity = false;
+    this.exit.body.immovable = true;
 
     //parse
     this.levelData = JSON.parse(this.game.cache.getText('level'))
@@ -134,10 +120,6 @@ SamuraiCat.Level1.prototype = {
     }, this)
 
     this.fires.setAll('body.allowGravity', false);
-    //GOAL
-    // this.goal = this.add.sprite(this.levelData.goal.x, this.levelData.goal.y, 'goal');
-    // this.game.physics.arcade.enable(this.goal);
-    // this.goal.body.allowGravity = false;
 
     this.chowEnemy = this.add.sprite(24, 72, 'chowEnemy');
     this.game.physics.arcade.enable(this.chowEnemy);
@@ -150,7 +132,6 @@ SamuraiCat.Level1.prototype = {
     this.player = this.add.sprite(129, 518, 'player');
     this.player.anchor.setTo(0.5);
     this.player.animations.add('walking');
-    // this.player.animations.play('walking', 6, true)
     this.player.animations.add('slash')
 
     this.player.anchor.setTo(0.5);
@@ -196,7 +177,7 @@ SamuraiCat.Level1.prototype = {
     this.game.physics.arcade.collide(this.player, this.test);
     this.game.physics.arcade.overlap(this.player, this.fires, this.killPlayer);
     this.game.physics.arcade.overlap(this.player, this.star, this.killPlayer);
-    this.game.physics.arcade.overlap(this.player, this.door, this.win)
+    this.game.physics.arcade.overlap(this.player, this.tree, this.win)
 
     this.player.body.velocity.x = 0;
 
