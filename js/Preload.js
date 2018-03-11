@@ -44,6 +44,8 @@ SamuraiCat.Preload.prototype = {
     this.load.image('pig', 'assets/images/pig.png')
     this.load.image('smallPlatform', 'assets/images/smallPlatform.png')
 
+    this.load.spritesheet('evilQueen', 'assets/images/evilQueen.png', 41, 70)
+    this.load.spritesheet('rabbit', 'assets/images/rabbit.png', 61, 60)
     this.load.spritesheet('redSoldier', 'assets/images/redSoldier.png', 28, 50)
     this.load.spritesheet('evilFlower', 'assets/images/evilPlant.png', 36, 35)
     this.load.spritesheet('madHatter', 'assets/images/madHatter.png', 40, 70)

@@ -62,11 +62,27 @@ SamuraiCat.Level2.prototype = {
     this.madHatter.body.allowGravity = false;
     this.madHatter.body.immovable = true;
 
-    this.tree = this.add.sprite(650, 160, 'tree');
+    this.rabbit = this.add.sprite(150, 160, 'rabbit');
+    this.rabbit.anchor.setTo(0.5);
+    this.game.physics.arcade.enable(this.rabbit)
+    this.rabbit.animations.add('moving');
+    this.rabbit.animations.play('moving', 4, true);
+    this.rabbit.body.allowGravity = false;
+    this.rabbit.body.immovable = true;
+
+    this.tree = this.add.sprite(140, 203, 'tree');
     this.tree.anchor.setTo(0.5);
     this.game.physics.arcade.enable(this.tree)
     this.tree.body.allowGravity = false;
     this.tree.body.immovable = true;
+
+    this.evilQueen = this.add.sprite(730, 130, 'evilQueen');
+    this.evilQueen.anchor.setTo(0.5);
+    this.game.physics.arcade.enable(this.evilQueen)
+    this.evilQueen.animations.add('crazy');
+    this.evilQueen.animations.play('crazy', 4, true);
+    this.evilQueen.body.allowGravity = false;
+    this.evilQueen.body.immovable = true;
 
     this.mushroom = this.add.sprite(130, 660, 'mushroom');
     this.mushroom.anchor.setTo(0.5);
