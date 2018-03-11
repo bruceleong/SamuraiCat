@@ -150,7 +150,6 @@ SamuraiCat.Level1.prototype = {
 
     this.input.keyboard.addKeyCapture([Phaser.Keyboard.M])
 
-
   },
   update: function () {
 

@@ -6,5 +6,7 @@ SamuraiCat.game.state.add('Preload', SamuraiCat.Preload);
 SamuraiCat.game.state.add('MainMenu', SamuraiCat.MainMenu);
 SamuraiCat.game.state.add('Level1', SamuraiCat.Level1);
 SamuraiCat.game.state.add('Level2', SamuraiCat.Level2);
+SamuraiCat.game.state.add('Final', SamuraiCat.Final);
+SamuraiCat.game.state.add('Intro', SamuraiCat.Intro);
 
 SamuraiCat.game.state.start('Boot')

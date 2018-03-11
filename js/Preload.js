@@ -4,17 +4,9 @@ SamuraiCat.Preload = function(){};
 
 SamuraiCat.Preload.prototype = {
   preload: function() {
-  	//show logo in loading screen
-  	this.splash = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'logo');
-    this.splash.anchor.setTo(0.5);
+    this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'tile');
 
-    this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY + 128, 'preloadbar');
-    this.preloadBar.anchor.setTo(0.5);
-
-    this.load.setPreloadSprite(this.preloadBar);
-
-    //sample
-    this.load.image('blue', 'assets/images/blue.png');
+    this.background.autoScroll(-20, 0);
 
 
 //load game assets
@@ -30,7 +22,6 @@ SamuraiCat.Preload.prototype = {
     this.load.image('candle', 'assets/images/candle.png');
     this.load.image('candy', 'assets/images/candy.png');
     this.load.image('floor', 'assets/images/transparentGround.png')
-    this.load.image('goal', 'assets/images/gorilla3.png');
     this.load.image('arrowButton', 'assets/images/arrowButton.png');
     this.load.image('actionButton', 'assets/images/actionButton.png');
 
@@ -41,8 +32,10 @@ SamuraiCat.Preload.prototype = {
     this.load.tilemap('level', 'assets/images/level1.json', null, Phaser.Tilemap.TILED_JSON)
     this.load.image('gameTiles', 'assets/images/backgroundBlue.png')
     this.load.image('platformBrick', 'assets/images/platformBrick.png')
-    this.load.image('pig', 'assets/images/pig.png')
     this.load.image('smallPlatform', 'assets/images/smallPlatform.png')
+    this.load.image('dukeAwake', 'assets/images/awakeDuke.png')
+    this.load.image('dukeSleeping', 'assets/images/intro.png')
+    this.load.image('story', 'assets/images/story.png')
 
     this.load.spritesheet('home', 'assets/images/home.png', 101, 40)
     this.load.spritesheet('exit', 'assets/images/exit.png', 81, 50)
@@ -63,7 +56,7 @@ SamuraiCat.Preload.prototype = {
     this.load.text('level2', 'assets/data/level2.json')
   },
   create: function() {
-    this.state.start('MainMenu');
-    // this.state.start('Game');
+    // this.state.start('Intro');
+    this.state.start('Level1');
   }
 };

@@ -137,7 +137,7 @@ SamuraiCat.Level2.prototype = {
     // this.duke.animations.add('attack');
     // this.duke.body.allowGravity = false;
     // this.duke.body.immovable = true;
-    //create player
+
     this.mkey = this.input.keyboard.addKey(Phaser.Keyboard.M)
 
     this.input.keyboard.addKeyCapture([Phaser.Keyboard.M])
@@ -221,7 +221,7 @@ SamuraiCat.Level2.prototype = {
     SamuraiCat.game.state.start('Level2');
   },
   win: function (player, goal) {
-    SamuraiCat.game.state.start('Level2');
+    SamuraiCat.game.state.start('Final');
   },
   createRedSoldier: function () {
     var redSoldier = this.redSoldier.getFirstExists(false)

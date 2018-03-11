@@ -4,8 +4,9 @@ SamuraiCat.Boot = function(){};
 
 SamuraiCat.Boot.prototype = {
   preload: function() {
-    this.load.image('logo', 'assets/images/logo.png');
-    this.load.image('preloadbar', 'assets/sampleImages/preloadBar.png');
+
+    this.load.image('tile', 'assets/images/tile.png');
+
   },
   create: function() {
     this.game.stage.backgroundColor = '#fff';
