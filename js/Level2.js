@@ -70,19 +70,15 @@ SamuraiCat.Level2.prototype = {
     this.rabbit.body.allowGravity = false;
     this.rabbit.body.immovable = true;
 
-    this.tree = this.add.sprite(140, 203, 'tree');
-    this.tree.anchor.setTo(0.5);
-    this.game.physics.arcade.enable(this.tree)
-    this.tree.body.allowGravity = false;
-    this.tree.body.immovable = true;
-
     this.evilQueen = this.add.sprite(730, 130, 'evilQueen');
     this.evilQueen.anchor.setTo(0.5);
     this.game.physics.arcade.enable(this.evilQueen)
-    this.evilQueen.animations.add('crazy');
-    this.evilQueen.animations.play('crazy', 4, true);
+    this.evilQueen.animations.add('moving');
+    this.evilQueen.animations.play('moving', 4, true);
     this.evilQueen.body.allowGravity = false;
     this.evilQueen.body.immovable = true;
+
+    console.log(this.evilQueen.animations, 'evil queen')
 
     this.mushroom = this.add.sprite(130, 660, 'mushroom');
     this.mushroom.anchor.setTo(0.5);
@@ -105,6 +101,14 @@ SamuraiCat.Level2.prototype = {
     }, this)
     this.bricks.setAll('body.immovable', true);
     this.bricks.setAll('body.allowGravity', false)
+
+    this.tree = this.add.group();
+    this.tree.enableBody = true;
+    this.level2Data.treeData.forEach(function (element) {
+      this.tree.create(element.x, element.y, 'tree')
+    }, this)
+    this.tree.setAll('body.immovable', true);
+    this.tree.setAll('body.allowGravity', false)
 
     this.grass = this.add.group();
     this.grass.enableBody = true;
@@ -164,7 +168,7 @@ SamuraiCat.Level2.prototype = {
     this.createRedSoldier();
     this.redSoldierCreator = this.game.time.events.loop(Phaser.Timer.SECOND * this.level2Data.redSoldierFrequency, this.createRedSoldier, this)
 
-
+    console.log(SamuraiCat.game)
   },
   update: function () {
 
@@ -172,19 +176,21 @@ SamuraiCat.Level2.prototype = {
     this.game.physics.arcade.collide(this.player, this.grass);
     this.game.physics.arcade.collide(this.player, this.mushroom);
     this.game.physics.arcade.collide(this.player, this.flower);
-    this.game.physics.arcade.collide(this.player, this.madHatter);
+    this.game.physics.arcade.collide(this.player, this.madHatter)
+    ;
+    this.game.physics.arcade.collide(this.player, this.tree);
     this.game.physics.arcade.collide(this.player, this.cheshire);
     this.game.physics.arcade.collide(this.redSoldier, this.bricks);
     this.game.physics.arcade.collide(this.redSoldier, this.grass);
     this.game.physics.arcade.collide(this.redSoldier, this.evilFlower);
     this.game.physics.arcade.collide(this.redSoldier, this.flower);
     this.game.physics.arcade.collide(this.redSoldier, this.cheshire);
-    // this.game.physics.arcade.collide(this.player, this.smallPlatform);
 
     this.game.physics.arcade.collide(this.player, this.floor);
 
-    window.x = this
+    window.x = this;
     this.game.physics.arcade.overlap(this.player, this.evilFlower, this.killPlayer);
+    this.game.physics.arcade.overlap(this.player, this.redSoldier, this.killPlayer);
     this.game.physics.arcade.overlap(this.player, this.door, this.win)
 
     this.player.body.velocity.x = 0;
@@ -216,12 +222,12 @@ SamuraiCat.Level2.prototype = {
     }
   },
 
-  killPlayer: function (player, fire) {
-    // alert('you lost')
-    SamuraiCat.game.state.start('Game');
+  killPlayer: function (player, evilFlower) {
+    console.log('you lost')
+    SamuraiCat.game.state.start('Level2');
   },
   win: function (player, goal) {
-    SamuraiCat.game.state.start('level2');
+    SamuraiCat.game.state.start('Level2');
   },
   createRedSoldier: function () {
     var redSoldier = this.redSoldier.getFirstExists(false)
