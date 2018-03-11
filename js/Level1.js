@@ -130,16 +130,19 @@ SamuraiCat.Level1.prototype = {
     this.chowEnemy.body.immovable = true;
 
     //create player
-    this.player = this.add.sprite(129, 518, 'player');
+    this.player = this.add.sprite(129, 518, 'dukeNew');
     this.player.anchor.setTo(0.5);
-    this.player.animations.add('walking');
-    this.player.animations.add('slash')
+    this.player.animations.add('walking', [0, 1, 2], 6, true);
+    this.player.animations.add('slash', [5, 6, 7, 8, 9], 6, true)
 
     this.player.anchor.setTo(0.5);
-    this.game.physics.arcade.enable(this.player)
     this.player.customParams = {};
-
+    this.game.physics.arcade.enable(this.player)
+    this.player.body.collideWorldBounds = true;
     this.game.camera.follow(this.player)
+
+    console.log(this.player)
+
 
     this.star = this.add.group();
     this.star.enableBody = true;
@@ -187,18 +190,21 @@ SamuraiCat.Level1.prototype = {
       }
     }, this)
 
-    if (this.mkey.isDown) {
-      this.player.animations.play('slash', 4, true)
-    }
+    // if (this.mkey.isDown) {
+    //   console.log('hellloooooo')
+    //   this.player.play('walking')
+    // } else {
+    //   this.player.frame = 0;
+    // }
 
     if (this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
       this.player.body.velocity.x = -this.RUNNING_SPEED;
       this.player.scale.setTo(-1, 1);
-      this.player.play('walking', 6, true);
+      this.player.play('walking');
     } else if (this.cursors.right.isDown || this.player.customParams.isMovingRight) {
       this.player.body.velocity.x = this.RUNNING_SPEED;
       this.player.scale.setTo(1, 1)
-      this.player.play('walking', 6, true)
+      this.player.play('walking');
     } else {
       this.player.animations.stop();
       this.player.frame = 0;
