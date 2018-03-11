@@ -13,6 +13,7 @@ SamuraiCat.Level1.prototype = {
 
     this.RUNNING_SPEED = 200;
     this.JUMPING_SPEED = 580;
+    currentScore = 0;
 
   },
   preload: function () {
@@ -20,16 +21,9 @@ SamuraiCat.Level1.prototype = {
   },
 
   create: function () {
+    meow = this.game.add.audio('meow');
     this.game.world.setBounds(0, 0, 780, 780);
     this.game.stage.backgroundColor = '#87ceeb'
-    // console.log(this.game)
-    // this.map = this.add.tilemap('level');
-    // this.map.addTilesetImage('backgroundBlue', 'gameTiles')
-    // this.map.addTilesetImage('pig', 'pig')
-    // this.background = this.map.createLayer('background')
-    // this.test = this.map.createLayer('test')
-
-    // this.background.resizeWorld();
 
     this.floor = this.add.sprite(2, 740, 'floor');
     this.game.physics.arcade.enable(this.floor)
@@ -44,8 +38,8 @@ SamuraiCat.Level1.prototype = {
     this.piggie = this.add.sprite(456, 562, 'piggie');
     this.piggie.anchor.setTo(0.5);
     this.game.physics.arcade.enable(this.piggie)
-    this.piggie.animations.add('walking');
-    this.piggie.animations.play('walking', 4, true);
+    this.piggie.animations.add('mouth');
+    this.piggie.animations.play('mouth', 4, true);
     this.piggie.body.allowGravity = false;
     this.piggie.body.immovable = true;
 
@@ -106,6 +100,18 @@ SamuraiCat.Level1.prototype = {
     }, this)
     this.hostessCake.setAll('body.immovable', true);
     this.hostessCake.setAll('body.allowGravity', false)
+    //Spam musubi
+    this.spamMusubi = this.add.group()
+    this.spamMusubi.enableBody = true;
+
+    var spamMusubi;
+
+    this.levelData.spamMusubiData.forEach(function (element) {
+      spamMusubi = this.spamMusubi.create(element.x, element.y, 'spamMusubi');
+      spamMusubi.animations.add('fire', [0, 1], 4, true)
+      spamMusubi.play('fire');
+    }, this)
+    this.spamMusubi.setAll('body.allowGravity', false);
 
     //fires
     this.fires = this.add.group()
@@ -118,7 +124,6 @@ SamuraiCat.Level1.prototype = {
       fire.animations.add('fire', [0, 1], 4, true)
       fire.play('fire');
     }, this)
-
     this.fires.setAll('body.allowGravity', false);
 
     this.chowEnemy = this.add.sprite(24, 45, 'chowEnemy');
@@ -133,16 +138,13 @@ SamuraiCat.Level1.prototype = {
     this.player = this.add.sprite(129, 518, 'dukeNew');
     this.player.anchor.setTo(0.5);
     this.player.animations.add('walking', [0, 1, 2], 6, true);
-    this.player.animations.add('slash', [5, 6, 7, 8, 9], 6, true)
+    this.player.animations.add('slash', [5, 6, 7, 8, 9], 20, true)
 
     this.player.anchor.setTo(0.5);
-    this.player.customParams = {};
+    // this.player.customParams = {};
     this.game.physics.arcade.enable(this.player)
     this.player.body.collideWorldBounds = true;
     this.game.camera.follow(this.player)
-
-    console.log(this.player)
-
 
     this.star = this.add.group();
     this.star.enableBody = true;
@@ -150,39 +152,40 @@ SamuraiCat.Level1.prototype = {
     this.createStar();
     this.starCreator = this.game.time.events.loop(Phaser.Timer.SECOND * this.levelData.starFrequency, this.createStar, this)
 
-    this.mkey = this.input.keyboard.addKey(Phaser.Keyboard.M)
+    controls = {
+      right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
+      left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+      up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
+      spaceBar: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
 
-    this.input.keyboard.addKeyCapture([Phaser.Keyboard.M])
+    }
 
+    this.input.keyboard.addKeyCapture([Phaser.Keyboard.RIGHT, Phaser.Keyboard.LEFT, Phaser.Keyboard.UP])
   },
   update: function () {
 
     this.game.physics.arcade.collide(this.player, this.ground);
     this.game.physics.arcade.collide(this.player, this.rollysticks);
     this.game.physics.arcade.collide(this.player, this.candies);
-    this.game.physics.arcade.collide(this.star, this.sun)
-    // this.game.physics.arcade.collide(this.player, this.test);
     this.game.physics.arcade.collide(this.player, this.floor);
     this.game.physics.arcade.collide(this.player, this.hostessCake)
-    this.game.physics.arcade.collide(this.star, this.hostessCake)
-    // this.game.physics.arcade.collide(this.player, this.smallPlatform);
     this.game.physics.arcade.collide(this.player, this.piggie);
     this.game.physics.arcade.collide(this.player, this.sun);
 
+    this.game.physics.arcade.collide(this.star, this.sun)
+    this.game.physics.arcade.collide(this.star, this.hostessCake)
     this.game.physics.arcade.collide(this.star, this.ground);
     this.game.physics.arcade.collide(this.star, this.rollysticks);
     this.game.physics.arcade.collide(this.star, this.candies);
     this.game.physics.arcade.collide(this.star, this.floor);
-
-    this.piggie.play('walking')
 
     window.x = this
     this.game.physics.arcade.collide(this.player, this.test);
     this.game.physics.arcade.overlap(this.player, this.fires, this.killPlayer);
     this.game.physics.arcade.overlap(this.player, this.star, this.killPlayer);
     this.game.physics.arcade.overlap(this.player, this.tree, this.win)
+    this.game.physics.arcade.overlap(this.player, this.spamMusubi, this.onPlayerSushi)
 
-    this.player.body.velocity.x = 0;
 
     this.star.forEach(function (element) {
       if (element.x < 10 && element.y > 600) {
@@ -190,32 +193,51 @@ SamuraiCat.Level1.prototype = {
       }
     }, this)
 
-    // if (this.mkey.isDown) {
-    //   console.log('hellloooooo')
-    //   this.player.play('walking')
-    // } else {
-    //   this.player.frame = 0;
-    // }
+    this.player.body.velocity.x = 0;
 
-    if (this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
+    if (controls.left.isDown) {
+      if (controls.up.isDown && this.player.body.touching.down) {
+        this.player.body.velocity.y = -this.JUMPING_SPEED;
+        this.player.body.velocity.x = -this.RUNNING_SPEED;
+        this.player.scale.setTo(-1, 1);
+        this.player.animations.play('walking');
+
+      }
       this.player.body.velocity.x = -this.RUNNING_SPEED;
       this.player.scale.setTo(-1, 1);
-      this.player.play('walking');
-    } else if (this.cursors.right.isDown || this.player.customParams.isMovingRight) {
+      this.player.animations.play('walking');
+
+
+    } else if (controls.right.isDown) {
+      if (controls.up.isDown && this.player.body.touching.down) {
+        this.player.body.velocity.y = -this.JUMPING_SPEED;
+        this.player.body.velocity.x = this.RUNNING_SPEED;
+        this.player.scale.setTo(1, 1);
+        this.player.animations.play('walking');
+
+      }
       this.player.body.velocity.x = this.RUNNING_SPEED;
       this.player.scale.setTo(1, 1)
-      this.player.play('walking');
-    } else {
-      this.player.animations.stop();
-      this.player.frame = 0;
-    }
+      this.player.animations.play('walking')
 
-    if ((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
+    } else if (controls.up.isDown && this.player.body.touching.down) {
       this.player.body.velocity.y = -this.JUMPING_SPEED;
+    } else if (controls.spaceBar.isDown) {
+      this.player.animations.play('slash')
+    } else {
+      this.player.animations.stop()
+      this.player.frame = 0
     }
-  },
 
+  },
+  onPlayerSushi: function (player, spamMusubi) {
+    currentScore++
+    console.log(currentScore)
+    spamMusubi.kill();
+  },
   killPlayer: function (player, fire) {
+    meow.play()
+    console.log('i lost')
     SamuraiCat.game.state.start('Level1');
   },
   win: function (player, goal) {

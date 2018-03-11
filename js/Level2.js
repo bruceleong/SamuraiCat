@@ -9,11 +9,8 @@ SamuraiCat.Level2.prototype = {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 1000;
 
-    this.cursors = this.game.input.keyboard.createCursorKeys();
-
     this.RUNNING_SPEED = 200;
     this.JUMPING_SPEED = 580;
-
   },
   preload: function () {
 
@@ -22,14 +19,6 @@ SamuraiCat.Level2.prototype = {
   create: function () {
     this.game.world.setBounds(0, 0, 780, 780);
     this.game.stage.backgroundColor = '#B19CD9'
-    // console.log(this.game)
-    // this.map = this.add.tilemap('level');
-    // this.map.addTilesetImage('backgroundBlue', 'gameTiles')
-    // this.map.addTilesetImage('pig', 'pig')
-    // this.background = this.map.createLayer('background')
-    // this.test = this.map.createLayer('test')
-
-    // this.background.resizeWorld();
 
     this.floor = this.add.sprite(2, 740, 'level2ground');
     this.game.physics.arcade.enable(this.floor)
@@ -109,6 +98,19 @@ SamuraiCat.Level2.prototype = {
     this.grass.setAll('body.immovable', true);
     this.grass.setAll('body.allowGravity', false)
 
+    //teaCup
+    this.teaCup = this.add.group()
+    this.teaCup.enableBody = true;
+
+    var teaCup;
+
+    this.level2Data.teaCupData.forEach(function (element) {
+      teaCup = this.teaCup.create(element.x, element.y, 'teaCup');
+      teaCup.animations.add('cup', [0, 1], 4, true)
+      teaCup.play('cup');
+    }, this)
+    this.teaCup.setAll('body.allowGravity', false);
+
     var flower;
     this.flower = this.add.group();
     this.flower.enableBody = true;
@@ -131,25 +133,18 @@ SamuraiCat.Level2.prototype = {
     this.evilFlower.setAll('body.immovable', true);
     this.evilFlower.setAll('body.allowGravity', false)
 
-    // this.duke = this.add.sprite(129, 318, 'dukeNew');
-    // this.duke.anchor.setTo(0.5);
-    // this.game.physics.arcade.enable(this.duke)
-    // this.duke.animations.add('attack');
-    // this.duke.body.allowGravity = false;
-    // this.duke.body.immovable = true;
-
     this.mkey = this.input.keyboard.addKey(Phaser.Keyboard.M)
 
     this.input.keyboard.addKeyCapture([Phaser.Keyboard.M])
 
-    this.player = this.add.sprite(129, 518, 'player');
+    this.player = this.add.sprite(129, 518, 'dukeNew');
     this.player.anchor.setTo(0.5);
-    this.player.animations.add('walking');
+    this.player.animations.add('walking', [0, 1, 2], 6, true);
+    this.player.animations.add('slash', [5, 6, 7, 8, 9], 20, true)
 
     this.player.anchor.setTo(0.5);
     this.game.physics.arcade.enable(this.player)
-    this.player.customParams = {};
-
+    this.player.body.collideWorldBounds = true;
     this.game.camera.follow(this.player)
 
 
@@ -159,7 +154,17 @@ SamuraiCat.Level2.prototype = {
     this.createRedSoldier();
     this.redSoldierCreator = this.game.time.events.loop(Phaser.Timer.SECOND * this.level2Data.redSoldierFrequency, this.createRedSoldier, this)
 
-    console.log(SamuraiCat.game)
+    controls = {
+      right: this.input.keyboard.addKey(Phaser.Keyboard.RIGHT),
+      left: this.input.keyboard.addKey(Phaser.Keyboard.LEFT),
+      up: this.input.keyboard.addKey(Phaser.Keyboard.UP),
+      spaceBar: this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+
+    }
+
+    this.input.keyboard.addKeyCapture([Phaser.Keyboard.RIGHT, Phaser.Keyboard.LEFT, Phaser.Keyboard.UP])
+
+
   },
   update: function () {
     this.game.physics.arcade.collide(this.player, this.bricks);
@@ -167,7 +172,7 @@ SamuraiCat.Level2.prototype = {
     this.game.physics.arcade.collide(this.player, this.mushroom);
     this.game.physics.arcade.collide(this.player, this.flower);
     this.game.physics.arcade.collide(this.player, this.madHatter)
-    ;
+      ;
     this.game.physics.arcade.collide(this.player, this.rabbit);
     this.game.physics.arcade.collide(this.player, this.cheshire);
     this.game.physics.arcade.collide(this.redSoldier, this.bricks);
@@ -182,6 +187,7 @@ SamuraiCat.Level2.prototype = {
     this.game.physics.arcade.overlap(this.player, this.evilFlower, this.killPlayer);
     this.game.physics.arcade.overlap(this.player, this.redSoldier, this.killPlayer);
     this.game.physics.arcade.overlap(this.player, this.door, this.win)
+    this.game.physics.arcade.overlap(this.player, this.teaCup, this.onPlayerTea)
 
     this.player.body.velocity.x = 0;
     this.redSoldier.forEach(function (element) {
@@ -190,30 +196,45 @@ SamuraiCat.Level2.prototype = {
       }
     }, this)
 
-    if (this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
+    this.player.body.velocity.x = 0;
+
+    if (controls.left.isDown) {
+      if (controls.up.isDown && this.player.body.touching.down) {
+        this.player.body.velocity.y = -this.JUMPING_SPEED;
+        this.player.body.velocity.x = -this.RUNNING_SPEED;
+        this.player.scale.setTo(-1, 1);
+        this.player.animations.play('walking');
+
+      }
       this.player.body.velocity.x = -this.RUNNING_SPEED;
       this.player.scale.setTo(-1, 1);
-      this.player.play('walking', 6, true);
-    } else if (this.cursors.right.isDown || this.player.customParams.isMovingRight) {
+      this.player.animations.play('walking');
+
+
+    } else if (controls.right.isDown) {
+      if (controls.up.isDown && this.player.body.touching.down) {
+        this.player.body.velocity.y = -this.JUMPING_SPEED;
+        this.player.body.velocity.x = this.RUNNING_SPEED;
+        this.player.scale.setTo(1, 1);
+        this.player.animations.play('walking');
+
+      }
       this.player.body.velocity.x = this.RUNNING_SPEED;
       this.player.scale.setTo(1, 1)
-      this.player.play('walking', 6, true);
-    } else {
-      this.player.animations.stop();
-      this.player.frame = 0;
-    }
+      this.player.animations.play('walking')
 
-    if ((this.cursors.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
+    } else if (controls.up.isDown && this.player.body.touching.down) {
       this.player.body.velocity.y = -this.JUMPING_SPEED;
+    } else if (controls.spaceBar.isDown) {
+      this.player.animations.play('slash')
+    } else {
+      this.player.animations.stop()
+      this.player.frame = 0
     }
+  },
 
-    // if (this.mkey.isDown) {
-    //   console.log('hellloooo inside m key')
-    //   this.player.play('attack', [4, 5, 6, 7, 8, 9, 19,], 6, false)
-    // } else {
-    //   this.player.animations.stop();
-    //   this.player.frame = 0;
-    // }
+  onPlayerTea: function(player, teaCup) {
+    teaCup.kill()
   },
 
   killPlayer: function (player, evilFlower) {

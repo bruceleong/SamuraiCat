@@ -37,6 +37,8 @@ SamuraiCat.Preload.prototype = {
     this.load.image('dukeSleeping', 'assets/images/intro.png')
     this.load.image('story', 'assets/images/story.png')
 
+    this.load.spritesheet('spamMusubi', 'assets/images/spamMusubi.png', 30, 18);
+    this.load.spritesheet('teaCup', 'assets/images/teaCup.png', 25, 25)
     this.load.spritesheet('home', 'assets/images/home.png', 101, 40)
     this.load.spritesheet('exit', 'assets/images/exit.png', 81, 50)
     this.load.spritesheet('evilQueen', 'assets/images/evilFace.png', 71, 70)
@@ -54,9 +56,10 @@ SamuraiCat.Preload.prototype = {
     this.load.spritesheet('fire', 'assets/images/fire_spritesheet.png', 22, 21, 2, 1, 1);
     this.load.text('level', 'assets/data/level.json')
     this.load.text('level2', 'assets/data/level2.json')
+    this.load.audio('meow', 'assets/audio/meow.ogg')
   },
   create: function() {
-    this.state.start('Intro');
+    this.state.start('MainMenu');
     // this.state.start('Level1');
     // this.state.start('Level2');
   }
