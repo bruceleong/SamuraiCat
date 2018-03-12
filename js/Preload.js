@@ -15,7 +15,7 @@ SamuraiCat.Preload.prototype = {
     this.load.image('hostessCake', 'assets/images/hostessCake.png');
     this.load.image('door', 'assets/images/door.png');
     this.load.image('tree', 'assets/images/tree.png')
-    this.load.image('duke', 'assets/images/duke.jpg')
+    this.load.image('duke', 'assets/images/duke.png')
     this.load.image('ground', 'assets/images/ground.png');
     this.load.image('rollysticks', 'assets/images/rollysticks.png');
     this.load.image('star', 'assets/images/obstacle.png');
@@ -80,5 +80,8 @@ SamuraiCat.Preload.prototype = {
   },
   create: function () {
     this.state.start('MainMenu');
+    // this.state.start('Level0');
+    // this.state.start('Level1');
+    // this.state.start('Level2');
   }
 };

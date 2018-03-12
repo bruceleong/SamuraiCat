@@ -192,7 +192,7 @@ SamuraiCat.Level2.prototype = {
     this.game.physics.arcade.collide(this.player, this.flower);
     this.game.physics.arcade.collide(this.player, this.madHatter)
       ;
-    this.game.physics.arcade.collide(this.player, this.rabbit);
+    this.game.physics.arcade.collide(this.player, this.rabbit, this.rabbitTalk);
     this.game.physics.arcade.collide(this.player, this.cheshire);
     this.game.physics.arcade.collide(this.redSoldier, this.bricks);
     this.game.physics.arcade.collide(this.redSoldier, this.grass);
