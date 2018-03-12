@@ -73,6 +73,8 @@ SamuraiCat.Preload.prototype = {
     this.load.audio('slowSong', 'assets/audio/slowSong.ogg');
     this.load.audio('song3', 'assets/audio/song3.ogg');
     this.load.audio('loudHiss', 'assets/audio/loudHiss.ogg');
+    this.load.audio('rabbit', 'assets/audio/rabbit.ogg');
+    this.load.audio('queenSound', 'assets/audio/queenSound.ogg');
     this.load.audio('soldierWalk', 'assets/audio/soldierWalk.ogg');
 
   },

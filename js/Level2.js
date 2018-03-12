@@ -17,17 +17,22 @@ SamuraiCat.Level2.prototype = {
   },
 
   create: function () {
-    this.song3 = this.game.add.audio('song3')
-    this.song3.play();
-    soldierWalk = this.game.add.audio('soldierWalk');
     var text = "Level 3";
     var style = { font: "40px Avenir", fill: "#000000", align: "center" };
     var t = this.game.add.text(560, 50, text, style);
 
+    this.song3 = this.game.add.audio('song3')
+    this.song3.play();
+    soldierWalk = this.game.add.audio('soldierWalk');
     meow = this.game.add.audio('meow');
     hiss = this.game.add.audio('hiss');
     eating = this.game.add.audio('eating');
     warCry = this.game.add.audio('loudHiss');
+    queenSound = this.game.add.audio('queenSound');
+    rabbit = this.game.add.audio('rabbit');
+
+
+
     this.game.world.setBounds(0, 0, 780, 780);
     this.game.stage.backgroundColor = '#B19CD9'
 
@@ -60,6 +65,7 @@ SamuraiCat.Level2.prototype = {
     this.rabbit.animations.play('moving', 4, true);
     this.rabbit.body.allowGravity = false;
     this.rabbit.body.immovable = true;
+    rabbit.play();
 
     this.door = this.add.sprite(50, 120, 'door');
     this.door.anchor.setTo(0.5);
@@ -73,6 +79,8 @@ SamuraiCat.Level2.prototype = {
     this.game.physics.arcade.enable(this.evilQueen)
     this.evilQueen.animations.add('moving');
     this.evilQueen.animations.play('moving', 2, true);
+    queenSound.play();
+
     this.evilQueen.body.allowGravity = false;
     this.evilQueen.body.immovable = true;
 
