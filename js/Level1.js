@@ -21,9 +21,17 @@ SamuraiCat.Level1.prototype = {
   },
 
   create: function () {
+    this.medSpeedSong = this.game.add.audio('medSpeedSong');
+    this.medSpeedSong.play();
+
+    var text = "Level 2";
+    var style = { font: "40px Avenir", fill: "#000000", align: "center" };
+    var t = this.game.add.text(300, 60, text, style);
+
     meow = this.game.add.audio('meow');
     hiss = this.game.add.audio('hiss');
     eating = this.game.add.audio('eating');
+    warCry = this.game.add.audio('loudHiss');
     this.game.world.setBounds(0, 0, 780, 780);
     this.game.stage.backgroundColor = '#87ceeb'
 
@@ -225,6 +233,7 @@ SamuraiCat.Level1.prototype = {
     } else if (controls.up.isDown && this.player.body.touching.down) {
       this.player.body.velocity.y = -this.JUMPING_SPEED;
     } else if (controls.spaceBar.isDown) {
+      warCry.play();
       this.player.animations.play('slash')
     } else {
       this.player.animations.stop()
@@ -233,18 +242,15 @@ SamuraiCat.Level1.prototype = {
 
   },
   onPlayerSushi: function (player, spamMusubi) {
-    currentScore++
-    console.log(currentScore)
     eating.play()
     spamMusubi.kill();
   },
   killPlayer: function (player, fire) {
-    hiss.play()
-    console.log('i lost')
+    meow.play()
     SamuraiCat.game.state.start('Level1');
   },
   win: function (player, goal) {
-    meow.play()
+    hiss.play()
     SamuraiCat.game.state.start('Level2');
   },
   createStar: function () {

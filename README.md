@@ -3,4 +3,4 @@ Samurai Cat is a platform game centering on the the main character, Mr. Duke. On
 
 To run - user local server.
 
-All images and spritesheets were created by Bruce Leong.
+All images, audio, and spritesheets were created and property of Bruce Leong.

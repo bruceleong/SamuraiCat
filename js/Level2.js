@@ -17,9 +17,17 @@ SamuraiCat.Level2.prototype = {
   },
 
   create: function () {
+    this.song3 = this.game.add.audio('song3')
+    this.song3.play();
+    soldierWalk = this.game.add.audio('soldierWalk');
+    var text = "Level 3";
+    var style = { font: "40px Avenir", fill: "#000000", align: "center" };
+    var t = this.game.add.text(560, 50, text, style);
+
     meow = this.game.add.audio('meow');
     hiss = this.game.add.audio('hiss');
     eating = this.game.add.audio('eating');
+    warCry = this.game.add.audio('loudHiss');
     this.game.world.setBounds(0, 0, 780, 780);
     this.game.stage.backgroundColor = '#B19CD9'
 
@@ -229,6 +237,7 @@ SamuraiCat.Level2.prototype = {
     } else if (controls.up.isDown && this.player.body.touching.down) {
       this.player.body.velocity.y = -this.JUMPING_SPEED;
     } else if (controls.spaceBar.isDown) {
+      warCry.play();
       this.player.animations.play('slash')
     } else {
       this.player.animations.stop()
@@ -242,12 +251,11 @@ SamuraiCat.Level2.prototype = {
   },
 
   killPlayer: function (player, evilFlower) {
-    console.log('you lost')
-    hiss.play();
+    meow.play();
     SamuraiCat.game.state.start('Level2');
   },
   win: function (player, goal) {
-    meow.play();
+    hiss.play();
     SamuraiCat.game.state.start('Final');
   },
   createRedSoldier: function () {
@@ -256,7 +264,8 @@ SamuraiCat.Level2.prototype = {
     if (!redSoldier) {
       redSoldier = this.redSoldier.create(0, 0, 'redSoldier');
       redSoldier.animations.add('move', [0, 1, 2], 6, true)
-      redSoldier.play('move')
+      redSoldier.play('move');
+      soldierWalk.play();
     }
 
     redSoldier.body.collideWorldBounds = true;
