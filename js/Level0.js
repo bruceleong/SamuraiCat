@@ -154,7 +154,7 @@ SamuraiCat.Level0.prototype = {
     this.game.physics.arcade.overlap(this.player, this.dukeGreen, this.onPlayerEvilGreen);
     this.game.physics.arcade.overlap(this.player, this.dukeYellow, this.onPlayerEvilYellow);
     this.game.physics.arcade.overlap(this.player, this.dukeBlue, this.onPlayerEvilBlue);
-    this.game.physics.arcade.overlap(this.player, this.apple, this.onPlayerApple);
+    this.game.physics.arcade.overlap(this.player, this.apple, this.killPlayer);
     this.game.physics.arcade.overlap(this.player, this.heart, this.win);
 
 
@@ -206,9 +206,9 @@ SamuraiCat.Level0.prototype = {
     hiss.play()
     dukeRed.kill();
   },
-  onPlayerApple: function (player, apple) {
-    eating.play();
-    apple.kill();
+  killPlayer: function (player, apple) {
+    meow.play()
+    SamuraiCat.game.state.start('Level0')
   },
   onPlayerEvilGreen: function (player, dukeGreen) {
     hiss.play()
