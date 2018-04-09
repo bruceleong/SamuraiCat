@@ -5,6 +5,5 @@ To run - user local server.
 
 All images, audio, and spritesheets were created and property of Bruce Leong.
 
-For current working version - visit - https://bruceleong.github.io/SamuraiCat/
-
+For current working version - visit - https://www.SamuraiCat.org
 

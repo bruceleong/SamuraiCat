@@ -4,7 +4,7 @@ SamuraiCat.Level1 = function () { };
 
 SamuraiCat.Level1.prototype = {
 
-  //initiate game settings
+  //game settings
   init: function () {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 1000;
@@ -136,10 +136,10 @@ SamuraiCat.Level1.prototype = {
     }, this)
     this.fires.setAll('body.allowGravity', false);
 
-    this.chowEnemy = this.add.sprite(24, 45, 'chowEnemy');
+    this.chowEnemy = this.add.sprite(22, 42, 'chowEnemy');
     this.game.physics.arcade.enable(this.chowEnemy);
     this.chowEnemy.body.allowGravity = false;
-    this.chowEnemy.scale.setTo(1, 1.75)
+    this.chowEnemy.scale.setTo(1.75, 1.75)
     this.chowEnemy.animations.add('moving');
     this.chowEnemy.animations.play('moving', 4, true);
     this.chowEnemy.body.immovable = true;

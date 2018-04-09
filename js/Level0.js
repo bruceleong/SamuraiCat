@@ -4,7 +4,7 @@ SamuraiCat.Level0 = function () { };
 
 SamuraiCat.Level0.prototype = {
 
-  //initiate game settings
+  //game settings
   init: function () {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 1000;
@@ -139,8 +139,13 @@ SamuraiCat.Level0.prototype = {
     }
 
     this.input.keyboard.addKeyCapture([Phaser.Keyboard.RIGHT, Phaser.Keyboard.LEFT, Phaser.Keyboard.UP])
+
+    this.createOnScreenControls()
+
   },
   update: function () {
+
+    this.player.customParams = {}
 
     this.game.physics.arcade.collide(this.player, this.floor);
     this.game.physics.arcade.collide(this.player, this.evilPlatform);
@@ -167,7 +172,7 @@ SamuraiCat.Level0.prototype = {
     this.player.body.velocity.x = 0;
 
     if (controls.left.isDown) {
-      if (controls.up.isDown && this.player.body.touching.down) {
+      if ((controls.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
         this.player.body.velocity.y = -this.JUMPING_SPEED;
         this.player.body.velocity.x = -this.RUNNING_SPEED;
         this.player.scale.setTo(-1, 1);
@@ -191,7 +196,7 @@ SamuraiCat.Level0.prototype = {
       this.player.scale.setTo(1, 1)
       this.player.animations.play('walking')
 
-    } else if (controls.up.isDown && this.player.body.touching.down) {
+    } else if ((controls.up.isDown || this.player.customParams.mustJump) && this.player.body.touching.down) {
       this.player.body.velocity.y = -this.JUMPING_SPEED;
     } else if (controls.spaceBar.isDown) {
       warCry.play()
@@ -239,5 +244,19 @@ SamuraiCat.Level0.prototype = {
 
     apple.reset(750, 100);
     apple.body.velocity.x = this.level0Data.appleSpeed;
+  },
+  createOnScreenControls: function() {
+    this.leftArrow = this.add.button(110, 675, 'left')
+    this.jump = this.add.button(260, 675, 'jump')
+    this.attack = this.add.button(410, 675, 'attack')
+    this.RightArrow = this.add.button(560, 675, 'right')
+
+    this.jump.events.onInputDown.add(function() {
+      this.player.customParams.mustJump = true;
+    }, this)
+
+    this.jump.events.onInputUp.add(function() {
+      this.player.customParams.mustJump = false;
+    }, this)
   }
 };

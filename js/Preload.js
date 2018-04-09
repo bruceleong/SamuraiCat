@@ -8,7 +8,10 @@ SamuraiCat.Preload.prototype = {
 
     this.background.autoScroll(-20, 0);
 
-    //load game assets
+    this.load.image('right', 'assets/images/right.png');
+    this.load.image('left', 'assets/images/left.png');
+    this.load.image('jump', 'assets/images/jump.png');
+    this.load.image('attack', 'assets/images/attack.png');
 
     this.load.image('level2ground', 'assets/images/level2ground.png')
     this.load.image('mushroom', 'assets/images/mushroom.png')
@@ -79,9 +82,9 @@ SamuraiCat.Preload.prototype = {
 
   },
   create: function () {
-    this.state.start('MainMenu');
+    // this.state.start('MainMenu');
     // this.state.start('Level0');
     // this.state.start('Level1');
-    // this.state.start('Level2');
+    this.state.start('Level2');
   }
 };

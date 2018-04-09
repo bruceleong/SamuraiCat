@@ -8,9 +8,12 @@ SamuraiCat.Level2.prototype = {
   init: function () {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 1000;
+    teaPickUpCount = 0;
 
     this.RUNNING_SPEED = 200;
     this.JUMPING_SPEED = 580;
+    this.BOUNCE_SPEED = 200;
+    console.log(teaPickUpCount, 'current tea pickup count')
   },
   preload: function () {
 
@@ -204,7 +207,7 @@ SamuraiCat.Level2.prototype = {
 
     window.x = this;
     this.game.physics.arcade.overlap(this.player, this.evilFlower, this.killPlayer);
-    this.game.physics.arcade.overlap(this.player, this.redSoldier, this.killPlayer);
+    this.game.physics.arcade.overlap(this.player, this.redSoldier, this.fightPlayer);
     this.game.physics.arcade.overlap(this.player, this.door, this.win)
     this.game.physics.arcade.overlap(this.player, this.teaCup, this.onPlayerTea)
 
@@ -253,10 +256,27 @@ SamuraiCat.Level2.prototype = {
     }
   },
 
-  onPlayerTea: function(player, teaCup) {
+  onPlayerTea: function (player, teaCup) {
     eating.play();
-    teaCup.kill()
+    teaCup.kill();
+    teaPickUpCount +=1;
+    console.log(teaPickUpCount, 'current count')
   },
+
+  fightPlayer: function (player, redSoldier) {
+    if (player.body.velocity.y > 0) { // kill enemies when hero is falling
+      warCry.play();
+      redSoldier.kill();
+      var BOUNCE_SPEED = 100;
+      player.body.velocity.y = -BOUNCE_SPEED
+    } else { // game over -> restart the game
+      meow.play();
+      SamuraiCat.game.state.start('Level2');
+    }
+
+    // meow.play();
+  },
+
 
   killPlayer: function (player, evilFlower) {
     meow.play();
