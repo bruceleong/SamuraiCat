@@ -13,7 +13,6 @@ SamuraiCat.Level2.prototype = {
     this.RUNNING_SPEED = 200;
     this.JUMPING_SPEED = 580;
     this.BOUNCE_SPEED = 200;
-    console.log(teaPickUpCount, 'current tea pickup count')
   },
   preload: function () {
 
@@ -259,8 +258,7 @@ SamuraiCat.Level2.prototype = {
   onPlayerTea: function (player, teaCup) {
     eating.play();
     teaCup.kill();
-    teaPickUpCount +=1;
-    console.log(teaPickUpCount, 'current count')
+    teaPickUpCount += 1;
   },
 
   fightPlayer: function (player, redSoldier) {
@@ -273,10 +271,7 @@ SamuraiCat.Level2.prototype = {
       meow.play();
       SamuraiCat.game.state.start('Level2');
     }
-
-    // meow.play();
   },
-
 
   killPlayer: function (player, evilFlower) {
     meow.play();
