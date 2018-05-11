@@ -140,8 +140,6 @@ SamuraiCat.Level0.prototype = {
 
     this.input.keyboard.addKeyCapture([Phaser.Keyboard.RIGHT, Phaser.Keyboard.LEFT, Phaser.Keyboard.UP])
 
-    // this.createOnScreenControls()
-
   },
   update: function () {
 
