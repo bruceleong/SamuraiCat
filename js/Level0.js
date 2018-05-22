@@ -56,7 +56,6 @@ SamuraiCat.Level0.prototype = {
     this.heart.body.allowGravity = false;
     this.heart.body.immovable = true;
 
-    //parse
     this.level0Data = JSON.parse(this.game.cache.getText('level0'))
 
     this.evilPlatform = this.add.group();
@@ -119,7 +118,6 @@ SamuraiCat.Level0.prototype = {
     this.player.animations.add('slash', [5, 6, 7, 8, 9], 20, true)
 
     this.player.anchor.setTo(0.5);
-    // this.player.customParams = {};
     this.game.physics.arcade.enable(this.player)
     this.player.body.collideWorldBounds = true;
     this.game.camera.follow(this.player)
